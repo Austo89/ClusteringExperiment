@@ -49,6 +49,8 @@ public class ClusteringExperiment {
             /////////////////////////////////////
             //pass the data to the experiment here
             /////////////////////////////////////
+            KMeans test = new KMeans(data,5);
+            test.cluster();
             
         } catch (IOException e){
             System.out.println("Couldn't find your file.");
