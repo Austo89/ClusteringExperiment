@@ -52,6 +52,9 @@ public class ClusteringExperiment {
             KMeans test = new KMeans(data,5);
             test.cluster();
             
+            DBScan test2 = new DBScan(data,.05,4);
+            test2.cluster();
+            
         } catch (IOException e){
             System.out.println("Couldn't find your file.");
         }
