@@ -55,6 +55,9 @@ public class ClusteringExperiment {
             DBScan test2 = new DBScan(data,.05,4);
             test2.cluster();
             
+            ACO test3 = new ACO(data,50,300);
+            test3.cluster();
+            
         } catch (IOException e){
             System.out.println("Couldn't find your file.");
         }
