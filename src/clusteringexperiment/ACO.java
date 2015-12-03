@@ -38,7 +38,6 @@ public class ACO {
 				x=(int) Math.floor(Math.random()*gridSize);
 				y=(int) Math.floor(Math.random()*gridSize);
 			} while(grid[x][y][1][0]!=0);
-			//System.out.println(dataLength);
 			System.arraycopy(data.get(i), 0, grid[x][y][1], 0, dataLength);
 			ants.add(data.get(i));
 			ants.add(new double[]{x, y});
