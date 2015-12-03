@@ -23,7 +23,8 @@ public class ClusteringExperiment {
         try{
             //read in the csv file comma delimited
             CSVFile = new BufferedReader(new FileReader("C:\\Users\\Austo89\\Documents\\Homework\\Fall 2015\\Soft Computing\\project3\\datasets norm\\wine_n.csv"));
-            
+            //C:\\Users\\User\\Google Drive\\Machine Learning\\hw 4\\wine_n.csv
+        
             //loop over all the datas
             boolean noProblem = true;
             while(noProblem){
@@ -57,6 +58,9 @@ public class ClusteringExperiment {
             
             CompetitiveNN test3= new CompetitiveNN(data,5);
             test3.cluster();
+            
+//            ACO test3 = new ACO(data,25,100);
+//            test3.cluster();
             
         } catch (IOException e){
             System.out.println("Couldn't find your file.");
