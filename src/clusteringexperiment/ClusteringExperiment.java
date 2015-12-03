@@ -49,11 +49,14 @@ public class ClusteringExperiment {
             /////////////////////////////////////
             //pass the data to the experiment here
             /////////////////////////////////////
-            KMeans test = new KMeans(data,5);
-            test.cluster();
+//            KMeans test = new KMeans(data,5);
+//            test.cluster();
+//            
+//            DBScan test2 = new DBScan(data,.05,4);
+//            test2.cluster();
             
-            DBScan test2 = new DBScan(data,.05,4);
-            test2.cluster();
+            CompetitiveNN test3= new CompetitiveNN(data,5);
+            test3.cluster();
             
         } catch (IOException e){
             System.out.println("Couldn't find your file.");
