@@ -23,7 +23,8 @@ public class ClusteringExperiment {
         try{
             //read in the csv file comma delimited
             CSVFile = new BufferedReader(new FileReader("C:\\Users\\Austo89\\Documents\\Homework\\Fall 2015\\Soft Computing\\project3\\datasets norm\\wine_n.csv"));
-            
+            //C:\\Users\\User\\Google Drive\\Machine Learning\\hw 4\\wine_n.csv
+        
             //loop over all the datas
             boolean noProblem = true;
             while(noProblem){
@@ -55,7 +56,7 @@ public class ClusteringExperiment {
             DBScan test2 = new DBScan(data,.05,4);
             test2.cluster();
             
-            ACO test3 = new ACO(data,50,300);
+            ACO test3 = new ACO(data,25,100);
             test3.cluster();
             
         } catch (IOException e){
