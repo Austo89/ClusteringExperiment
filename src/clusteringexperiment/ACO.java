@@ -2,31 +2,33 @@ package clusteringexperiment;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.Arrays;
 
 public class ACO {
 	ArrayList<ArrayList<Integer>> clusters;
     ArrayList<double[]> mus;
     ArrayList<double[]> data;
     ArrayList<double[]> ants;
-    int dataLength, antSize, gridSize;
+    int dataLength, antSize, gridSize, maxStepSize;
     
     double[][] grid[][]; //this is to store data and then an ant on a two dimensional array
-	public ACO(ArrayList<double[]> in_data, int in_ant, int in_grid){
+	public ACO(ArrayList<double[]> in_data, int in_ant){
 		data = in_data;
 		dataLength = data.get(0).length;
 		clusters = new ArrayList<ArrayList<Integer>>();
 		ants = new ArrayList<double[]>();
-		gridSize = in_grid;
+		gridSize = (int) Math.sqrt(10*(data.size()+in_ant));
 		grid = new double[gridSize][gridSize][2][dataLength];
 		antSize=in_ant;
-		//System.out.println(data.get(0)[0]);
+		maxStepSize=gridSize/2;//(int)Math.sqrt(20*(data.size()+in_ant));
+		System.out.println(gridSize+ " "+maxStepSize);
 	}
 	
 	public void cluster(){
 		//set up grid an ants
 		Collections.shuffle(data);
-		int x,y;
+		int x,y, j;
+		boolean notEnd = true;
 		for(int i=0; i<antSize; i++){
 			//pickup random object
 			ants.add(data.get(i));
@@ -37,10 +39,66 @@ public class ACO {
 				y=(int) Math.floor(Math.random()*gridSize);
 			} while(grid[x][y][1][0]!=0);
 			//System.out.println(dataLength);
-			System.arraycopy(ants.get(i), 0, grid[x][y][1], 0, dataLength);
+			System.arraycopy(data.get(i), 0, grid[x][y][1], 0, dataLength);
+			ants.add(data.get(i));
+			ants.add(new double[]{x, y});
 		}
 		scatterData(ants.size());
-		printGrid();
+		//printGrid();
+		int iter=0;
+		int attempt=0;
+		while (notEnd&&iter<100){ //50000
+			j=(int)Math.floor(Math.random()*antSize);
+			while (!step(j)&&attempt<=10){
+				System.out.println(attempt);
+				attempt++;
+			}
+			if (attempt<=10){//if the ant we chose could work
+				
+				
+				
+				iter++;
+			}
+			if (iter%10==0)
+				printGrid();
+			attempt=0;
+		}
+	}
+	
+	private boolean step(int j){
+		int dir=(int)Math.random()*4;
+		int stepSize=(int)Math.floor(Math.random()*maxStepSize);
+		int x=(int)ants.get(j*2+1)[0];
+		int y=(int)ants.get(j*2+1)[1];
+		System.out.print(y);
+		if (dir==0){
+			x%=gridSize;
+		}else if (dir==1){
+			if (stepSize>x){
+				x=gridSize-(stepSize-x);
+			}else{
+			x-=stepSize;
+			}
+		}else if (dir==2){
+			if (stepSize>y){
+				y=gridSize-(stepSize-y);
+			}else{
+			y-=stepSize;
+			}
+		}else{
+			y+=stepSize;
+			y%=gridSize;
+		}
+		System.out.println("x,y,j, step: "+x+", "+y+", "+j+", "+stepSize);
+		if (grid[x][y][1][0]==0){
+			System.arraycopy(ants.get(j*2), 0, grid[x][y][1], 0, dataLength);
+			Arrays.fill(grid[(int)ants.get(j*2+1)[0]] [(int)ants.get(j*2+1)[1]] [1], 0);
+			ants.get(j*2+1)[0]=x;
+			ants.get(j*2+1)[1]=y;
+			System.out.println(x+"  "+y);
+			return true;
+		}
+		return false;
 	}
 
 	private void scatterData(int start) {
@@ -71,6 +129,7 @@ public class ACO {
 			}
 			System.out.println("");
 		}
+		System.out.println("\n\n-------------------------------------\n\n");
 	}
 	
 }
