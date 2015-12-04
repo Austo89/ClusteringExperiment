@@ -124,7 +124,7 @@ public class ACO {
                 }
             }
             
-            if (b % 1000000 == 0){
+            if (b % 500000 == 0){
                 printGrid();
             }
         }
@@ -146,7 +146,9 @@ public class ACO {
             }
         }
         
-        printClusters();
+        //printClusters();
+        //System.out.println(clusters.size());
+        
     }
 
     public double neighborCompare(double[] pt, int x, int y) {
@@ -302,7 +304,21 @@ public class ACO {
 
     public Eval evaluate() {
         Eval eval = new Eval();
-
+        
+        int sheers = 0;
+        while(sheers < clusters.size()){
+            ArrayList<Integer> clu = clusters.get(sheers);
+            if (clu.size() < 4){
+                clusters.remove(clu);
+            } else {
+                sheers++;
+            }
+        }
+        
+        printClusters();
+        
+        System.out.print(clusters.size() + ", ");
+        
         //calculate cohesion
         double avgCohesionTotal = 0;
         double avgCohesionCluster = 0;

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package clusteringexperiment;
+
 import java.io.*;
 import java.util.*;
 
@@ -19,61 +20,55 @@ public class ClusteringExperiment {
     public static void main(String[] args) {
         ArrayList<double[]> data = new ArrayList();
         BufferedReader CSVFile;
-        
-        try{
+
+        try {
             //read in the csv file comma delimited
             CSVFile = new BufferedReader(new FileReader("C:\\Users\\Austo89\\Documents\\Homework\\Fall 2015\\Soft Computing\\project4\\datasets_norm\\seeds.csv"));
-            //C:\\Users\\User\\Google Drive\\Machine Learning\\hw 4\\wine_n.csv
-        
+            
+
             //loop over all the datas
             boolean noProblem = true;
-            while(noProblem){
+            while (noProblem) {
                 String dataLine = "";
-                try{
+                try {
                     dataLine = CSVFile.readLine();
                     //System.out.println(dataLine);
                     String datas[] = dataLine.split(",");
-                    
+
                     double[] dubData = new double[datas.length];
-                    for (int i=0; i < datas.length; i++){
+                    for (int i = 0; i < datas.length; i++) {
                         dubData[i] = Double.parseDouble(datas[i]);
                         //System.out.println(dubData[i]);
                     }
                     data.add(dubData);
-                }catch (IOException|NullPointerException e){
+                } catch (IOException | NullPointerException e) {
                     System.out.println("Reached end of file.");
                     noProblem = false;
                 }
-                
+
             }
-            
+
             /////////////////////////////////////
             //pass the data to the experiment here
             /////////////////////////////////////
-//            KMeans test = new KMeans(data,3);
-//            test.cluster();
-//            Eval ev = test.evaluate();
-//            System.out.println(ev.cohesion + ", " + ev.separation);
-//            
-//            DBScan test2 = new DBScan(data,.05,4);
-//            test2.cluster();
             
-//            CompetitiveNN test3= new CompetitiveNN(data,5);
-//            test3.cluster();
-            
-//            ACO test3 = new ACO(data,25,100);
-//            test3.cluster();
-            
-            ACO test = new ACO(data,10,16000000,.02);
+            ACO test = new ACO(data,10,4000000, .05);
             test.cluster();
             Eval ev = test.evaluate();
-            System.out.println(ev.cohesion + ", " + ev.separation);
+            System.out.println("cohesion,separation: " + ev.cohesion + ", " + ev.separation);
             
-        } catch (IOException e){
+//            for (int i = 0; i < 10; i++) {
+//
+//                ACO test = new ACO(data, 10, 4000000, .02);
+//                test.cluster();
+//                Eval ev = test.evaluate();
+//                System.out.println(ev.cohesion + ", " + ev.separation);
+//            }
+
+        } catch (IOException e) {
             System.out.println("Couldn't find your file.");
         }
-        
-        
+
     }
-    
+
 }
