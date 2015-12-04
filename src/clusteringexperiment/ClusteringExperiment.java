@@ -50,10 +50,10 @@ public class ClusteringExperiment {
             /////////////////////////////////////
             //pass the data to the experiment here
             /////////////////////////////////////
-            KMeans test = new KMeans(data,3);
-            test.cluster();
-            Eval ev = test.evaluate();
-            System.out.println(ev.cohesion + ", " + ev.separation);
+//            KMeans test = new KMeans(data,3);
+//            test.cluster();
+//            Eval ev = test.evaluate();
+//            System.out.println(ev.cohesion + ", " + ev.separation);
 //            
 //            DBScan test2 = new DBScan(data,.05,4);
 //            test2.cluster();
@@ -63,6 +63,11 @@ public class ClusteringExperiment {
             
 //            ACO test3 = new ACO(data,25,100);
 //            test3.cluster();
+            
+            ACO test = new ACO(data,10,16000000,.02);
+            test.cluster();
+            Eval ev = test.evaluate();
+            System.out.println(ev.cohesion + ", " + ev.separation);
             
         } catch (IOException e){
             System.out.println("Couldn't find your file.");
